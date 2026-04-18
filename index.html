@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Meridian Strategy — Marketing Consultant</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --purple-50: #EEEDFE;
+    --purple-200: #AFA9EC;
+    --purple-400: #7F77DD;
+    --purple-600: #534AB7;
+    --purple-800: #3C3489;
+    --purple-900: #26215C;
+    --teal-50: #E1F5EE;
+    --teal-600: #0F6E56;
+    --coral-50: #FAECE7;
+    --coral-600: #993C1D;
+    --ink: #16141F;
+    --ink-muted: #6B6880;
+    --ink-faint: #C2C0CE;
+    --surface: #FAFAF8;
+    --surface-2: #F2F1EE;
+    --white: #FFFFFF;
+    --border: rgba(22,20,31,0.1);
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--surface);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(250,250,248,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2.5rem;
+    height: 64px;
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.3px;
+  }
+  .nav-logo span { color: var(--purple-600); }
+  .nav-center { display: flex; gap: 2rem; }
+  .nav-center a {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-center a:hover { color: var(--ink); }
+  .nav-right { display: flex; align-items: center; gap: 1rem; }
+
+  /* Language toggle */
+  .lang-toggle {
+    display: flex;
+    background: var(--surface-2);
+    border-radius: 99px;
+    padding: 3px;
+    gap: 2px;
+  }
+  .lang-btn {
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 4px 12px;
+    border: none;
+    border-radius: 99px;
+    cursor: pointer;
+    background: transparent;
+    color: var(--ink-muted);
+    transition: all 0.2s;
+  }
+  .lang-btn.active {
+    background: var(--white);
+    color: var(--ink);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  }
+
+  .nav-cta {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    background: var(--purple-600);
+    color: var(--white);
+    padding: 9px 20px;
+    border-radius: 99px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .nav-cta:hover { background: var(--purple-800); transform: translateY(-1px); }
+
+  /* HERO */
+  .hero {
+    padding: 7rem 2.5rem 5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--purple-800);
+    background: var(--purple-50);
+    padding: 5px 14px;
+    border-radius: 99px;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.3px;
+  }
+  .hero-badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--purple-600);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5vw, 52px);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -1.5px;
+    margin-bottom: 1.25rem;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--purple-600);
+    position: relative;
+  }
+  .hero-desc {
+    font-size: 17px;
+    color: var(--ink-muted);
+    line-height: 1.75;
+    margin-bottom: 2.25rem;
+    font-weight: 300;
+  }
+  .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-main {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    background: var(--ink);
+    color: var(--white);
+    padding: 13px 28px;
+    border-radius: 99px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .btn-main:hover { background: var(--purple-900); transform: translateY(-1px); }
+  .btn-ghost {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 400;
+    background: transparent;
+    color: var(--ink);
+    padding: 13px 28px;
+    border-radius: 99px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+    display: inline-block;
+  }
+  .btn-ghost:hover { border-color: var(--ink); background: var(--surface-2); }
+
+  /* Hero visual */
+  .hero-visual {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .hero-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    animation: floatUp 0.6s ease both;
+  }
+  .hero-card:nth-child(1) { animation-delay: 0.1s; }
+  .hero-card:nth-child(2) { animation-delay: 0.2s; margin-top: 24px; }
+  .hero-card:nth-child(3) { animation-delay: 0.3s; margin-top: -24px; }
+  .hero-card:nth-child(4) { animation-delay: 0.4s; }
+  @keyframes floatUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-card .card-label { font-size: 11px; color: var(--ink-faint); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .hero-card .card-val { font-family: var(--font-display); font-size: 26px; font-weight: 700; color: var(--ink); }
+  .hero-card .card-change { font-size: 12px; color: var(--teal-600); font-weight: 500; margin-top: 2px; }
+  .hero-card .card-bar { height: 4px; border-radius: 99px; background: var(--surface-2); margin-top: 10px; overflow: hidden; }
+  .hero-card .card-bar-fill { height: 100%; border-radius: 99px; background: var(--purple-600); animation: barGrow 1s 0.6s ease both; transform-origin: left; }
+  @keyframes barGrow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+  /* STATS */
+  .stats-strip {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--white);
+  }
+  .stats-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .stat-item {
+    padding: 2.5rem 2.5rem;
+    border-right: 1px solid var(--border);
+    text-align: center;
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--purple-600);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-label { font-size: 13px; color: var(--ink-muted); }
+
+  /* SECTIONS */
+  .section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 5rem 2.5rem;
+  }
+  .section-full { padding: 5rem 0; background: var(--white); }
+  .section-full .section-inner { max-width: 1100px; margin: 0 auto; padding: 0 2.5rem; }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--purple-600);
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 4vw, 38px);
+    font-weight: 700;
+    letter-spacing: -0.8px;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+  .section-sub {
+    font-size: 16px;
+    color: var(--ink-muted);
+    max-width: 500px;
+    line-height: 1.75;
+    font-weight: 300;
+    margin-bottom: 3rem;
+  }
+
+  /* SERVICES */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+  }
+  .svc-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .svc-card:hover { border-color: var(--purple-400); transform: translateY(-3px); }
+  .svc-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--purple-50);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+  }
+  .svc-icon svg { width: 22px; height: 22px; }
+  .svc-card h3 { font-family: var(--font-display); font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+  .svc-card p { font-size: 14px; color: var(--ink-muted); line-height: 1.65; font-weight: 300; }
+
+  /* WORK */
+  .case-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 14px;
+  }
+  .case-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .case-card:hover { transform: translateY(-3px); border-color: var(--purple-400); }
+  .case-thumb {
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  .case-thumb.purple { background: var(--purple-50); color: var(--purple-800); }
+  .case-thumb.teal { background: var(--teal-50); color: var(--teal-600); }
+  .case-thumb.coral { background: var(--coral-50); color: var(--coral-600); }
+  .case-body { padding: 1.25rem 1.5rem 1.5rem; }
+  .case-tag { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--ink-faint); margin-bottom: 8px; }
+  .case-body h3 { font-family: var(--font-display); font-size: 16px; font-weight: 600; margin-bottom: 6px; line-height: 1.3; }
+  .case-body p { font-size: 13px; color: var(--ink-muted); line-height: 1.6; font-weight: 300; }
+  .case-result {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--purple-800);
+    background: var(--purple-50);
+    padding: 4px 12px;
+    border-radius: 99px;
+  }
+
+  /* TESTIMONIALS */
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 14px;
+  }
+  .testi-card {
+    background: var(--surface-2);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem;
+  }
+  .testi-quote { font-size: 15px; color: var(--ink); line-height: 1.75; margin-bottom: 1.25rem; font-weight: 300; font-style: italic; }
+  .testi-author { display: flex; align-items: center; gap: 10px; }
+  .testi-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--purple-600);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 600; color: var(--white);
+    font-family: var(--font-display);
+  }
+  .testi-name { font-size: 13px; font-weight: 500; }
+  .testi-role { font-size: 12px; color: var(--ink-muted); }
+
+  /* CONTACT */
+  .contact-wrap {
+    background: var(--purple-900);
+    border-radius: var(--radius-lg);
+    padding: 4rem 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .contact-left h2 {
+    font-family: var(--font-display);
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.8px;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+  .contact-left p { font-size: 15px; color: var(--purple-200); line-height: 1.75; font-weight: 300; }
+  .contact-detail { display: flex; align-items: center; gap: 10px; margin-top: 2rem; }
+  .contact-detail-icon {
+    width: 36px; height: 36px;
+    border-radius: var(--radius-sm);
+    background: rgba(255,255,255,0.08);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .contact-detail-icon svg { width: 16px; height: 16px; }
+  .contact-detail-text { font-size: 14px; color: var(--purple-200); }
+
+  form { display: flex; flex-direction: column; gap: 12px; }
+  form input, form textarea, form select {
+    width: 100%;
+    padding: 13px 16px;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.06);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    resize: none;
+  }
+  form input::placeholder, form textarea::placeholder { color: rgba(255,255,255,0.3); }
+  form input:focus, form textarea:focus { border-color: var(--purple-400); }
+  form textarea { height: 100px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .form-submit {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    background: var(--white);
+    color: var(--purple-900);
+    padding: 14px;
+    border-radius: 99px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    margin-top: 4px;
+  }
+  .form-submit:hover { background: var(--purple-50); transform: translateY(-1px); }
+  .form-note { font-size: 12px; color: rgba(255,255,255,0.3); text-align: center; margin-top: 4px; }
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 2rem;
+    color: var(--white);
+    font-size: 15px;
+  }
+  .form-success .check {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1rem;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 1.75rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  footer .foot-logo {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  footer .foot-logo span { color: var(--purple-600); }
+  footer p { font-size: 13px; color: var(--ink-muted); }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 0 1.25rem; }
+    .nav-center { display: none; }
+    .hero { grid-template-columns: 1fr; gap: 2rem; padding: 4rem 1.25rem 3rem; }
+    .hero-visual { display: none; }
+    .stats-inner { grid-template-columns: 1fr; }
+    .stat-item { border-right: none; border-bottom: 1px solid var(--border); }
+    .contact-wrap { grid-template-columns: 1fr; gap: 2rem; padding: 2.5rem 1.5rem; }
+    .form-row { grid-template-columns: 1fr; }
+    .section { padding: 3.5rem 1.25rem; }
+    footer { flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Meridian<span>.</span></a>
+  <div class="nav-center">
+    <a href="#services" data-i18n="nav_services">Services</a>
+    <a href="#work" data-i18n="nav_work">Work</a>
+    <a href="#about" data-i18n="nav_about">About</a>
+    <a href="#contact" data-i18n="nav_contact">Contact</a>
+  </div>
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('es')">ES</button>
+    </div>
+    <a href="#contact" class="nav-cta" data-i18n="nav_cta">Work with me</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="hero-badge" data-i18n="hero_badge">Marketing consultant · Available now</div>
+    <h1 data-i18n="hero_h1">Marketing that <em>moves</em> the needle</h1>
+    <p class="hero-desc" data-i18n="hero_desc">I help ambitious brands cut through the noise with sharp strategy, compelling stories, and campaigns that convert.</p>
+    <div class="hero-btns">
+      <a href="#work" class="btn-main" data-i18n="hero_btn1">See my work</a>
+      <a href="#contact" class="btn-ghost" data-i18n="hero_btn2">Get in touch</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-card">
+      <div class="card-label" data-i18n="card1_label">ROAS</div>
+      <div class="card-val">3.8×</div>
+      <div class="card-change" data-i18n="card1_change">↑ vs. last quarter</div>
+      <div class="card-bar"><div class="card-bar-fill" style="width:78%"></div></div>
+    </div>
+    <div class="hero-card">
+      <div class="card-label" data-i18n="card2_label">Conversion rate</div>
+      <div class="card-val">6.4%</div>
+      <div class="card-change" data-i18n="card2_change">↑ 2.1% growth</div>
+      <div class="card-bar"><div class="card-bar-fill" style="width:64%"></div></div>
+    </div>
+    <div class="hero-card">
+      <div class="card-label" data-i18n="card3_label">Revenue</div>
+      <div class="card-val">+60%</div>
+      <div class="card-change" data-i18n="card3_change">↑ organic YoY</div>
+      <div class="card-bar"><div class="card-bar-fill" style="width:60%"></div></div>
+    </div>
+    <div class="hero-card">
+      <div class="card-label" data-i18n="card4_label">Clients served</div>
+      <div class="card-val">40+</div>
+      <div class="card-change" data-i18n="card4_change">↑ 8 yrs experience</div>
+      <div class="card-bar"><div class="card-bar-fill" style="width:90%"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-num">40+</div>
+      <div class="stat-label" data-i18n="stat1">Brands worked with</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">3.2×</div>
+      <div class="stat-label" data-i18n="stat2">Avg. ROAS improvement</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">8yr</div>
+      <div class="stat-label" data-i18n="stat3">Industry experience</div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <span class="eyebrow" data-i18n="svc_eyebrow">Services</span>
+  <h2 class="section-title" data-i18n="svc_title">What I can do for you</h2>
+  <p class="section-sub" data-i18n="svc_sub">From strategy to execution, focused services for growing businesses.</p>
+  <div class="services-grid">
+    <div class="svc-card">
+      <div class="svc-icon">
+        <svg viewBox="0 0 22 22" fill="none"><rect x="2" y="2" width="7" height="7" rx="1.5" fill="var(--purple-600)"/><rect x="13" y="2" width="7" height="7" rx="1.5" fill="var(--purple-200)"/><rect x="2" y="13" width="7" height="7" rx="1.5" fill="var(--purple-200)"/><rect x="13" y="13" width="7" height="7" rx="1.5" fill="var(--purple-600)"/></svg>
+      </div>
+      <h3 data-i18n="svc1_title">Brand strategy</h3>
+      <p data-i18n="svc1_desc">Positioning, messaging frameworks, and visual identity direction that makes you unforgettable.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon">
+        <svg viewBox="0 0 22 22" fill="none"><path d="M3 16 L7 10 L12 13 L17 5 L20 8" stroke="var(--purple-600)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h3 data-i18n="svc2_title">Growth marketing</h3>
+      <p data-i18n="svc2_desc">Paid media, SEO, and funnel optimization to drive measurable, sustainable growth.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon">
+        <svg viewBox="0 0 22 22" fill="none"><path d="M4 17 L9 12 L13 15 L18 8" stroke="var(--purple-600)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="18" cy="8" r="2.5" fill="var(--purple-600)"/></svg>
+      </div>
+      <h3 data-i18n="svc3_title">Content & campaigns</h3>
+      <p data-i18n="svc3_desc">End-to-end campaign planning, content strategy, and creative direction that converts.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon">
+        <svg viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8" stroke="var(--purple-600)" stroke-width="2"/><path d="M11 7v4l3 3" stroke="var(--purple-600)" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <h3 data-i18n="svc4_title">Marketing audits</h3>
+      <p data-i18n="svc4_desc">A clear-eyed review of what's working, what's not, and the exact next steps to take.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<div class="section-full" id="work">
+  <div class="section-inner">
+    <span class="eyebrow" data-i18n="work_eyebrow">Selected work</span>
+    <h2 class="section-title" data-i18n="work_title">Recent projects</h2>
+    <p class="section-sub" data-i18n="work_sub">A sample of brands I've helped grow.</p>
+    <div class="case-grid">
+      <div class="case-card">
+        <div class="case-thumb purple" data-i18n="case1_thumb">Brand relaunch</div>
+        <div class="case-body">
+          <div class="case-tag" data-i18n="case1_tag">DTC / E-commerce</div>
+          <h3 data-i18n="case1_title">Revamped brand voice for 2× email CTR</h3>
+          <p data-i18n="case1_desc">Repositioned messaging and redesigned email sequences for a home goods brand.</p>
+          <span class="case-result" data-i18n="case1_result">+2× click-through rate</span>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-thumb teal" data-i18n="case2_thumb">Paid media</div>
+        <div class="case-body">
+          <div class="case-tag" data-i18n="case2_tag">SaaS</div>
+          <h3 data-i18n="case2_title">3.8× ROAS on Meta ads in 90 days</h3>
+          <p data-i18n="case2_desc">Rebuilt ad creative strategy and audience targeting for a B2B software startup.</p>
+          <span class="case-result" data-i18n="case2_result">3.8× return on ad spend</span>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-thumb coral" data-i18n="case3_thumb">Go-to-market</div>
+        <div class="case-body">
+          <div class="case-tag" data-i18n="case3_tag">Consumer goods</div>
+          <h3 data-i18n="case3_title">New product launch to 10k units sold</h3>
+          <p data-i18n="case3_desc">Full GTM strategy including launch campaign, influencer partnerships, and PR.</p>
+          <span class="case-result" data-i18n="case3_result">10,000 units in 3 months</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TESTIMONIALS -->
+<section class="section" id="about">
+  <span class="eyebrow" data-i18n="testi_eyebrow">Testimonials</span>
+  <h2 class="section-title" data-i18n="testi_title">What clients say</h2>
+  <p class="section-sub" data-i18n="testi_sub">Trusted by founders and marketing teams alike.</p>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <p class="testi-quote" data-i18n="testi1_quote">"Working together completely changed how we think about our marketing. Revenue from organic channels is up 60% since we implemented the strategy."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">SL</div>
+        <div>
+          <div class="testi-name">Sarah L.</div>
+          <div class="testi-role" data-i18n="testi1_role">Founder, Bloom & Co.</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <p class="testi-quote" data-i18n="testi2_quote">"Sharp, fast, and deeply strategic. One of the best consultants I've worked with in 15 years of building brands."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">MT</div>
+        <div>
+          <div class="testi-name">Marcus T.</div>
+          <div class="testi-role" data-i18n="testi2_role">CMO, Vantage Health</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <div class="contact-wrap">
+    <div class="contact-left">
+      <h2 data-i18n="contact_title">Ready to grow?</h2>
+      <p data-i18n="contact_desc">Tell me about your business and goals. I'll get back to you within 24 hours.</p>
+      <div class="contact-detail">
+        <div class="contact-detail-icon">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M2 4l6 5 6-5" stroke="var(--purple-200)" stroke-width="1.5" stroke-linecap="round"/><rect x="1" y="3" width="14" height="10" rx="2" stroke="var(--purple-200)" stroke-width="1.5"/></svg>
+        </div>
+        <span class="contact-detail-text">12thbetsy@gmail.com</span>
+      </div>
+    </div>
+    <div class="contact-right">
+      <!-- 
+        FORMSPREE SETUP (2 min):
+        1. Go to https://formspree.io and sign up with 12thbetsy@gmail.com
+        2. Create a new form — copy your unique endpoint URL
+        3. Replace YOUR_FORMSPREE_ID below with that ID (looks like: https://formspree.io/f/xabc1234)
+      -->
+      <form id="contact-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+        <div class="form-row">
+          <input type="text" name="name" placeholder="" data-i18n-placeholder="form_name" required />
+          <input type="email" name="email" placeholder="" data-i18n-placeholder="form_email" required />
+        </div>
+        <input type="text" name="company" placeholder="" data-i18n-placeholder="form_company" />
+        <textarea name="message" placeholder="" data-i18n-placeholder="form_message" required></textarea>
+        <button type="submit" class="form-submit" data-i18n="form_submit">Send message</button>
+        <p class="form-note" data-i18n="form_note">I'll respond within 24 hours.</p>
+      </form>
+      <div class="form-success" id="form-success">
+        <div class="check">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M5 11l4 4 8-8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <p data-i18n="form_success">Message sent! I'll be in touch soon.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="foot-logo">Meridian<span>.</span></a>
+  <p data-i18n="footer_copy">© 2026 · All rights reserved</p>
+</footer>
+
+<script>
+const translations = {
+  en: {
+    nav_services: "Services",
+    nav_work: "Work",
+    nav_about: "About",
+    nav_contact: "Contact",
+    nav_cta: "Work with me",
+    hero_badge: "Marketing consultant · Available now",
+    hero_h1: 'Marketing that <em>moves</em> the needle',
+    hero_desc: "I help ambitious brands cut through the noise with sharp strategy, compelling stories, and campaigns that convert.",
+    hero_btn1: "See my work",
+    hero_btn2: "Get in touch",
+    card1_label: "ROAS",
+    card1_change: "↑ vs. last quarter",
+    card2_label: "Conversion rate",
+    card2_change: "↑ 2.1% growth",
+    card3_label: "Revenue",
+    card3_change: "↑ organic YoY",
+    card4_label: "Clients served",
+    card4_change: "↑ 8 yrs experience",
+    stat1: "Brands worked with",
+    stat2: "Avg. ROAS improvement",
+    stat3: "Industry experience",
+    svc_eyebrow: "Services",
+    svc_title: "What I can do for you",
+    svc_sub: "From strategy to execution, focused services for growing businesses.",
+    svc1_title: "Brand strategy",
+    svc1_desc: "Positioning, messaging frameworks, and visual identity direction that makes you unforgettable.",
+    svc2_title: "Growth marketing",
+    svc2_desc: "Paid media, SEO, and funnel optimization to drive measurable, sustainable growth.",
+    svc3_title: "Content & campaigns",
+    svc3_desc: "End-to-end campaign planning, content strategy, and creative direction that converts.",
+    svc4_title: "Marketing audits",
+    svc4_desc: "A clear-eyed review of what's working, what's not, and the exact next steps to take.",
+    work_eyebrow: "Selected work",
+    work_title: "Recent projects",
+    work_sub: "A sample of brands I've helped grow.",
+    case1_thumb: "Brand relaunch",
+    case1_tag: "DTC / E-commerce",
+    case1_title: "Revamped brand voice for 2× email CTR",
+    case1_desc: "Repositioned messaging and redesigned email sequences for a home goods brand.",
+    case1_result: "+2× click-through rate",
+    case2_thumb: "Paid media",
+    case2_tag: "SaaS",
+    case2_title: "3.8× ROAS on Meta ads in 90 days",
+    case2_desc: "Rebuilt ad creative strategy and audience targeting for a B2B software startup.",
+    case2_result: "3.8× return on ad spend",
+    case3_thumb: "Go-to-market",
+    case3_tag: "Consumer goods",
+    case3_title: "New product launch to 10k units sold",
+    case3_desc: "Full GTM strategy including launch campaign, influencer partnerships, and PR.",
+    case3_result: "10,000 units in 3 months",
+    testi_eyebrow: "Testimonials",
+    testi_title: "What clients say",
+    testi_sub: "Trusted by founders and marketing teams alike.",
+    testi1_quote: '"Working together completely changed how we think about our marketing. Revenue from organic channels is up 60% since we implemented the strategy."',
+    testi1_role: "Founder, Bloom & Co.",
+    testi2_quote: '"Sharp, fast, and deeply strategic. One of the best consultants I\'ve worked with in 15 years of building brands."',
+    testi2_role: "CMO, Vantage Health",
+    contact_title: "Ready to grow?",
+    contact_desc: "Tell me about your business and goals. I'll get back to you within 24 hours.",
+    form_name: "Your name",
+    form_email: "Work email",
+    form_company: "Company (optional)",
+    form_message: "What are you working on?",
+    form_submit: "Send message",
+    form_note: "I'll respond within 24 hours.",
+    form_success: "Message sent! I'll be in touch soon.",
+    footer_copy: "© 2026 · All rights reserved",
+  },
+  es: {
+    nav_services: "Servicios",
+    nav_work: "Trabajo",
+    nav_about: "Sobre mí",
+    nav_contact: "Contacto",
+    nav_cta: "Trabajemos juntos",
+    hero_badge: "Consultor de marketing · Disponible ahora",
+    hero_h1: 'Marketing que <em>mueve</em> la aguja',
+    hero_desc: "Ayudo a marcas ambiciosas a destacar con estrategia clara, historias convincentes y campañas que convierten.",
+    hero_btn1: "Ver mi trabajo",
+    hero_btn2: "Ponte en contacto",
+    card1_label: "ROAS",
+    card1_change: "↑ vs. trimestre anterior",
+    card2_label: "Tasa de conversión",
+    card2_change: "↑ 2.1% de crecimiento",
+    card3_label: "Ingresos",
+    card3_change: "↑ orgánico anual",
+    card4_label: "Clientes atendidos",
+    card4_change: "↑ 8 años de experiencia",
+    stat1: "Marcas con las que he trabajado",
+    stat2: "Mejora promedio de ROAS",
+    stat3: "Experiencia en la industria",
+    svc_eyebrow: "Servicios",
+    svc_title: "Cómo puedo ayudarte",
+    svc_sub: "De la estrategia a la ejecución, servicios enfocados para negocios en crecimiento.",
+    svc1_title: "Estrategia de marca",
+    svc1_desc: "Posicionamiento, marcos de mensajes e identidad visual que te hacen inolvidable.",
+    svc2_title: "Marketing de crecimiento",
+    svc2_desc: "Medios pagados, SEO y optimización de embudos para impulsar un crecimiento sostenible.",
+    svc3_title: "Contenido y campañas",
+    svc3_desc: "Planificación de campañas de principio a fin, estrategia de contenido y dirección creativa.",
+    svc4_title: "Auditorías de marketing",
+    svc4_desc: "Una revisión clara de qué funciona, qué no, y los próximos pasos exactos a seguir.",
+    work_eyebrow: "Trabajo selecto",
+    work_title: "Proyectos recientes",
+    work_sub: "Una muestra de las marcas que he ayudado a crecer.",
+    case1_thumb: "Relanzamiento de marca",
+    case1_tag: "DTC / E-commerce",
+    case1_title: "Renovamos la voz de marca y logramos 2× CTR en email",
+    case1_desc: "Reposicionamos el mensaje y rediseñamos las secuencias de email para una marca de artículos del hogar.",
+    case1_result: "+2× tasa de clics",
+    case2_thumb: "Medios pagados",
+    case2_tag: "SaaS",
+    case2_title: "3.8× ROAS en anuncios de Meta en 90 días",
+    case2_desc: "Reconstruimos la estrategia creativa y la segmentación de audiencia para una startup de software B2B.",
+    case2_result: "3.8× retorno sobre inversión",
+    case3_thumb: "Lanzamiento al mercado",
+    case3_tag: "Bienes de consumo",
+    case3_title: "Lanzamiento de producto: 10k unidades vendidas",
+    case3_desc: "Estrategia GTM completa: campaña de lanzamiento, alianzas con influencers y relaciones públicas.",
+    case3_result: "10,000 unidades en 3 meses",
+    testi_eyebrow: "Testimonios",
+    testi_title: "Lo que dicen los clientes",
+    testi_sub: "Con la confianza de fundadores y equipos de marketing.",
+    testi1_quote: '"Trabajar juntos cambió completamente cómo pensamos en nuestro marketing. Los ingresos de canales orgánicos subieron un 60% desde que implementamos la estrategia."',
+    testi1_role: "Fundadora, Bloom & Co.",
+    testi2_quote: '"Agudo, rápido y muy estratégico. Uno de los mejores consultores con los que he trabajado en 15 años construyendo marcas."',
+    testi2_role: "CMO, Vantage Health",
+    contact_title: "¿Listo para crecer?",
+    contact_desc: "Cuéntame sobre tu negocio y tus objetivos. Te respondo en menos de 24 horas.",
+    form_name: "Tu nombre",
+    form_email: "Correo profesional",
+    form_company: "Empresa (opcional)",
+    form_message: "¿En qué estás trabajando?",
+    form_submit: "Enviar mensaje",
+    form_note: "Respondo en menos de 24 horas.",
+    form_success: "¡Mensaje enviado! Estaré en contacto pronto.",
+    footer_copy: "© 2026 · Todos los derechos reservados",
+  }
+};
+
+let currentLang = 'en';
+
+function setLang(lang) {
+  currentLang = lang;
+  const t = translations[lang];
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) el.innerHTML = t[key];
+  });
+
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (t[key] !== undefined) el.placeholder = t[key];
+  });
+
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent === lang.toUpperCase());
+  });
+
+  document.documentElement.lang = lang;
+}
+
+// Init placeholders on load
+setLang('en');
+
+// Form submission handling
+const form = document.getElementById('contact-form');
+const success = document.getElementById('form-success');
+if (form) {
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const res = await fetch(form.action, {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+    if (res.ok) {
+      form.style.display = 'none';
+      success.style.display = 'block';
+    } else {
+      alert(currentLang === 'es' ? 'Hubo un error. Intenta de nuevo.' : 'Something went wrong. Please try again.');
+    }
+  });
+}
+</script>
+</body>
+</html>
